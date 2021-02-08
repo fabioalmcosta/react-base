@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import Routes from './routes';
 import GlobalStyle from './global.styles';
 import reducers from './reducers';
+import 'antd/dist/antd.css';
 
 const App: React.FC = () => (
   <>
