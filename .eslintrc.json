@@ -57,7 +57,8 @@
     ],
     "react/jsx-props-no-spreading": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "react/no-children-prop": "off"
   },
   "settings": {
     "import/resolver": {

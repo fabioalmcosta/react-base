@@ -1,84 +1,93 @@
-import React from 'react';
-import { Input, Button, Checkbox, Row, Col } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { StyledForm } from '../login.styles';
+import React, { useState } from 'react';
+import {
+  Icon,
+  Input,
+  Button,
+  Checkbox,
+  InputGroup,
+  InputLeftElement,
+  Center,
+  Box,
+} from '@chakra-ui/react';
+import { FaUserAlt, FaLock } from 'react-icons/fa';
 
 const Component: React.FC = () => {
-  const onFinish = (values: any): void => {
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = (values: any): void => {
+    setLoading(!loading);
     console.log('Success:', values);
   };
 
-  const onFinishFailed = (errorInfo: any): void => {
-    console.log('Failed:', errorInfo);
-  };
-
   return (
-    <StyledForm
-      name="basic"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-    >
-      <img
-        src="https://picsum.photos/350/70"
-        alt="Teste"
-        width="100%"
-        height="70px"
-        style={{ marginBottom: '30px' }}
-      />
-      <Row>
-        <Col span={24}>
-          <StyledForm.Item
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
-          >
+    <Center margin="auto" w="100%" h="100%">
+      <Box
+        w={['100%', '75%', '50%', '30%']}
+        p={4}
+        borderWidth="1px"
+        borderRadius="lg"
+      >
+        <form name="basic" onSubmit={onSubmit}>
+          <img
+            src="https://picsum.photos/350/70"
+            alt="Teste"
+            width="100%"
+            height="70px"
+            style={{ marginBottom: '30px' }}
+          />
+          <InputGroup mt={2}>
+            <InputLeftElement
+              pointerEvents="none"
+              children={<Icon as={FaUserAlt} />}
+            />
             <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
+              variant="outline"
+              name="username"
+              type="text"
               placeholder="Username"
+              isRequired
             />
-          </StyledForm.Item>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col span={24}>
-          <StyledForm.Item
-            name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
-          >
-            <Input.Password
-              prefix={<LockOutlined className="site-form-item-icon" />}
+          </InputGroup>
+          <InputGroup mt={2}>
+            <InputLeftElement
+              pointerEvents="none"
+              children={<Icon as={FaLock} />}
+            />
+            <Input
+              variant="outline"
+              name="password"
+              type="text"
               placeholder="Password"
+              isRequired
             />
-          </StyledForm.Item>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col span={12}>
-          <StyledForm.Item name="remember" valuePropName="checked">
-            <Checkbox>Remember me</Checkbox>
-          </StyledForm.Item>
-        </Col>
-        <Col span={12}>
-          <a className="login-form-forgot" href="localhost:3000/login">
-            Forgot password
-          </a>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col span={24}>
-          <StyledForm.Item>
-            <Button type="primary" htmlType="submit">
-              Login
-            </Button>
+          </InputGroup>
+          <Box mt={2}>
+            <Checkbox name="remember" defaultIsChecked>
+              Remember me
+            </Checkbox>
+            <Box float="right">
+              <a className="login-form-forgot" href="localhost:3000/login">
+                Forgot password
+              </a>
+            </Box>
+          </Box>
+          <Button
+            colorScheme="blue"
+            variant="solid"
+            isLoading={loading}
+            mt={2}
+            w="100%"
+            type="submit"
+          >
+            Login
+          </Button>
+          <Box mt={2}>
             Or
             <a href="localhost:3000/login"> register now!</a>
-          </StyledForm.Item>
-        </Col>
-      </Row>
-    </StyledForm>
+          </Box>
+        </form>
+      </Box>
+    </Center>
   );
 };
 
